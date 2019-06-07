@@ -1,0 +1,26 @@
+{
+  "name": "mta-node",
+  "version": "1.0.0",
+  "description": "Node/Typescript Server for the MTA Api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carnye/mta-node.git"
+  },
+  "keywords": [
+    "mta",
+    "typescript",
+    "node",
+    "subway",
+    "nyc"
+  ],
+  "author": "Sean Carney",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/carnye/mta-node/issues"
+  },
+  "homepage": "https://github.com/carnye/mta-node#readme"
+}
