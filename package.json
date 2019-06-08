@@ -1,26 +1,39 @@
 {
-  "name": "mta-node",
-  "version": "1.0.0",
-  "description": "Node/Typescript Server for the MTA Api",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/carnye/mta-node.git"
-  },
-  "keywords": [
-    "mta",
-    "typescript",
-    "node",
-    "subway",
-    "nyc"
-  ],
-  "author": "Sean Carney",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/carnye/mta-node/issues"
-  },
-  "homepage": "https://github.com/carnye/mta-node#readme"
+    "name": "mta-node",
+    "version": "1.0.0",
+    "description": "Node/Typescript Server for the MTA Api",
+    "main": "dist/index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "tsc",
+        "build:watch": "tsc --watch"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/carnye/mta-node.git"
+    },
+    "keywords": [
+        "mta",
+        "typescript",
+        "node",
+        "subway",
+        "nyc"
+    ],
+    "author": "Sean Carney",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/carnye/mta-node/issues"
+    },
+    "homepage": "https://github.com/carnye/mta-node#readme",
+    "devDependencies": {
+        "typescript": "^3.5.1"
+    },
+    "dependencies": {
+        "@types/google-protobuf": "^3.2.7",
+        "@types/lodash": "^4.14.134",
+        "axios": "^0.19.0",
+        "lodash": "^4.17.11",
+        "protobufjs": "^6.8.8",
+        "ts-protoc-gen": "^0.10.0"
+    }
 }
