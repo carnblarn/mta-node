@@ -11,10 +11,7 @@ export interface Stop {
 export interface Route {
     lines: Array<Line>;
     feedId: number;
-    color: string;
     name: string;
-    northbound?: string;
-    southbound?: string;
 }
 
 export type Line =
