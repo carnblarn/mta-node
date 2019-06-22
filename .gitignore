@@ -1,4 +1,4 @@
 node_modules
-src/apiKey.ts
 test.ts
 dist/
+test/apiKey.ts
