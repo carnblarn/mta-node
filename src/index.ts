@@ -92,6 +92,7 @@ export default class MtaApi {
             })
             .then(data => {
                 const message = (data as any) as FeedMessage;
+                console.log(JSON.stringify(message));
                 return parseGtfsJson(message);
             });
     }

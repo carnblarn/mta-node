@@ -3,9 +3,10 @@
     "version": "1.0.0",
     "description": "Node/Typescript Server for the MTA Api",
     "main": "dist/index.js",
+    "types": "dist/index.d.ts",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "build": "tsc",
+        "build": "tsc && cp src/proto dist/proto",
         "build:watch": "tsc --watch"
     },
     "repository": {
