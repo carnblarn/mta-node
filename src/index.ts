@@ -13,14 +13,18 @@ interface StationTime {
 }
 
 interface StationTimes {
-    [stopId: string]: {
-        N: StationTime[];
-        S: StationTime[];
+    stations: {
+        [stopId: string]: {
+            N: StationTime[];
+            S: StationTime[];
+        };
     };
 }
 
 const parseGtfsJson = (message: FeedMessage): StationTimes => {
-    const returnObj: StationTimes = {};
+    const returnObj: StationTimes = {
+        stations: {},
+    };
     if (message.entity.length > 0) {
         message.entity.forEach(feedEntity => {
             if (feedEntity.tripUpdate) {
@@ -33,8 +37,8 @@ const parseGtfsJson = (message: FeedMessage): StationTimes => {
                     const direction = stopTimeUpdate.stopId.substring(
                         stopTimeUpdate.stopId.length - 1
                     );
-                    if (!returnObj[updateStopId]) {
-                        returnObj[updateStopId] = {
+                    if (!returnObj.stations[updateStopId]) {
+                        returnObj.stations[updateStopId] = {
                             N: [],
                             S: [],
                         };
@@ -44,14 +48,14 @@ const parseGtfsJson = (message: FeedMessage): StationTimes => {
                         return;
                     }
                     if (direction === 'N') {
-                        returnObj[updateStopId].N.push({
+                        returnObj.stations[updateStopId].N.push({
                             tripId: tripUpdate.trip.tripId,
                             routeId: tripUpdate.trip.routeId,
                             delay: arrival.delay,
                             arrivalTime: arrival.time.low,
                         });
                     } else if (direction === 'S') {
-                        returnObj[updateStopId].S.push({
+                        returnObj.stations[updateStopId].S.push({
                             tripId: tripUpdate.trip.tripId,
                             routeId: tripUpdate.trip.routeId,
                             delay: arrival.delay,

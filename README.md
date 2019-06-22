@@ -29,11 +29,14 @@ Example response:
 
 ```javascript
 {
-    '635': { // the stopId for Union Square, on the 4/5/6 lines
-        'N': [...], // arrival times for northbound trains
-        'S': [...], // arrival times for southbound trains
-    },
+    stations: {
+        '635': { // the stopId for Union Square, on the 4/5/6 lines
+            'N': [...], // arrival times for northbound trains
+            'S': [...], // arrival times for southbound trains
+        },
     ...
+    }
+
 }
 ```
 
