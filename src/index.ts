@@ -43,23 +43,29 @@ const parseGtfsJson = (message: FeedMessage): StationTimes => {
                             S: [],
                         };
                     }
-                    const arrival = stopTimeUpdate.arrival;
-                    if (!arrival) {
+                    // if it's a final station departures should be used instead
+                    if (stopTimeUpdate.arrival && !stopTimeUpdate.departure) {
+                        return;
+                    }
+                    const times = stopTimeUpdate.arrival
+                        ? stopTimeUpdate.arrival
+                        : stopTimeUpdate.departure;
+                    if (!times) {
                         return;
                     }
                     if (direction === 'N') {
                         returnObj.stations[updateStopId].N.push({
                             tripId: tripUpdate.trip.tripId,
                             routeId: tripUpdate.trip.routeId,
-                            delay: arrival.delay,
-                            arrivalTime: arrival.time.low,
+                            delay: times.delay,
+                            arrivalTime: times.time.low,
                         });
                     } else if (direction === 'S') {
                         returnObj.stations[updateStopId].S.push({
                             tripId: tripUpdate.trip.tripId,
                             routeId: tripUpdate.trip.routeId,
-                            delay: arrival.delay,
-                            arrivalTime: arrival.time.low,
+                            delay: times.delay,
+                            arrivalTime: times.time.low,
                         });
                     }
                 });
@@ -96,7 +102,6 @@ export default class MtaApi {
             })
             .then(data => {
                 const message = (data as any) as FeedMessage;
-                console.log(JSON.stringify(message));
                 return parseGtfsJson(message);
             });
     }

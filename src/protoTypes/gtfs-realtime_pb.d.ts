@@ -51,7 +51,9 @@ export interface TripDescriptor {
 }
 
 export interface StopTimeUpdate {
-    arrival: StopTimeEvent;
+    arrival?: StopTimeEvent;
+    departure?: StopTimeEvent;
+    scheduleRelationship: string;
     stopId: string;
     '.nyctStopTimeUpdate': NyctStopTimeUpdate;
 }
