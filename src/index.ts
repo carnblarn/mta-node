@@ -77,8 +77,10 @@ const parseGtfsJson = (message: FeedMessage): StationTimes => {
 
 export default class MtaApi {
     key?: string;
-    constructor(key: string) {
+    betaKey?: string;
+    constructor(key: string, betaKey?: string) {
         this.key = key;
+        this.betaKey = betaKey;
     }
 
     getRealtimeArrivals(feedId: FeedId): Promise<StationTimes> {
@@ -95,6 +97,51 @@ export default class MtaApi {
             params: {
                 key: this.key,
                 feed_id: feedId,
+            },
+        })
+            .then(response => {
+                return parseGtfs(response);
+            })
+            .then(data => {
+                const message = (data as any) as FeedMessage;
+                return parseGtfsJson(message);
+            });
+    }
+
+    getRealtimeArrivalsBeta(feedId: FeedId): Promise<StationTimes> {
+        if (!feedId) {
+            throw new Error('A Feed ID must be provided');
+        }
+        if (!this.key) {
+            throw new Error('No API key present');
+        }
+        const parsedFeedId = parseInt(feedId as string);
+        let routeKey: string = ''; // because this is better?
+        if (feedId == 1) {
+            routeKey = '';
+        } else if (parsedFeedId === 26) {
+            routeKey = '-ace';
+        } else if (parsedFeedId === 16) {
+            routeKey = '-nqrw';
+        } else if (parsedFeedId === 21) {
+            routeKey = '-bdfm';
+        } else if (parsedFeedId === 2) {
+            routeKey = '-l';
+        } else if (parsedFeedId === 31) {
+            routeKey = '-g';
+        } else if (parsedFeedId === 36) {
+            routeKey = '-jz';
+        } else if (parsedFeedId === 51) {
+            routeKey = '-7';
+        } else if (parsedFeedId === 11) {
+            routeKey = '-si';
+        }
+        return axios({
+            method: 'GET',
+            url: `https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs${routeKey}`,
+            responseType: 'arraybuffer',
+            headers: {
+                'x-api-key': this.betaKey,
             },
         })
             .then(response => {
