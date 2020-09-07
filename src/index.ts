@@ -5,14 +5,14 @@ import { FeedId } from './types';
 
 const realtimeUrl = 'http://datamine.mta.info/mta_esi.php';
 
-interface StationTime {
+export interface StationTime {
     tripId: string;
     routeId: string;
     delay?: number;
     arrivalTime: number;
 }
 
-interface StationTimes {
+export interface StationTimes {
     stations: {
         [stopId: string]: {
             N: StationTime[];
@@ -26,10 +26,10 @@ const parseGtfsJson = (message: FeedMessage): StationTimes => {
         stations: {},
     };
     if (message.entity.length > 0) {
-        message.entity.forEach(feedEntity => {
+        message.entity.forEach((feedEntity) => {
             if (feedEntity.tripUpdate) {
                 const tripUpdate = feedEntity.tripUpdate;
-                tripUpdate.stopTimeUpdate.forEach(stopTimeUpdate => {
+                tripUpdate.stopTimeUpdate.forEach((stopTimeUpdate) => {
                     const updateStopId = stopTimeUpdate.stopId.substring(
                         0,
                         stopTimeUpdate.stopId.length - 1
@@ -99,10 +99,10 @@ export default class MtaApi {
                 feed_id: feedId,
             },
         })
-            .then(response => {
+            .then((response) => {
                 return parseGtfs(response);
             })
-            .then(data => {
+            .then((data) => {
                 const message = (data as any) as FeedMessage;
                 return parseGtfsJson(message);
             });
@@ -144,10 +144,10 @@ export default class MtaApi {
                 'x-api-key': this.betaKey,
             },
         })
-            .then(response => {
+            .then((response) => {
                 return parseGtfs(response);
             })
-            .then(data => {
+            .then((data) => {
                 const message = (data as any) as FeedMessage;
                 return parseGtfsJson(message);
             });
