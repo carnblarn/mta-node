@@ -103,7 +103,7 @@ export default class MtaApi {
                 return parseGtfs(response);
             })
             .then((data) => {
-                const message = (data as any) as FeedMessage;
+                const message = data as any as FeedMessage;
                 return parseGtfsJson(message);
             });
     }
@@ -114,6 +114,9 @@ export default class MtaApi {
         }
         if (!this.key) {
             throw new Error('No API key present');
+        }
+        if (!this.betaKey) {
+            throw new Error(' A beta key is required');
         }
         const parsedFeedId = parseInt(feedId as string);
         let routeKey: string = ''; // because this is better?
@@ -131,8 +134,6 @@ export default class MtaApi {
             routeKey = '-g';
         } else if (parsedFeedId === 36) {
             routeKey = '-jz';
-        } else if (parsedFeedId === 51) {
-            routeKey = '-7';
         } else if (parsedFeedId === 11) {
             routeKey = '-si';
         }
@@ -148,7 +149,7 @@ export default class MtaApi {
                 return parseGtfs(response);
             })
             .then((data) => {
-                const message = (data as any) as FeedMessage;
+                const message = data as any as FeedMessage;
                 return parseGtfsJson(message);
             });
     }
